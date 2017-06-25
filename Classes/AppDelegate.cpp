@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "MainMenuScene.h"
-
+#include "GameObjectPool.h"
 // #define USE_AUDIO_ENGINE 1
 #define USE_SIMPLE_AUDIO_ENGINE 1
 
@@ -69,11 +69,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // setting search path
     std::vector<std::string> searchPath;
     searchPath.push_back("Resources");
+    searchPath.push_back("Classes/Models");
+    searchPath.push_back("Classes/Views");
+    searchPath.push_back("Classes/Controllers");
     FileUtils::getInstance()->setSearchPaths(searchPath);
 
     //Preload Sprite in Cache
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("spriteSheet.plist", "spriteSheet.png");
 
+    // start object pooling
+    GameObjectPool::getInstance()->createGameObjectPool(GameObjectType::ASTEROID);
+    
     // create a scene. it's an autorelease object
     auto scene = MainMenuScene::createScene();
     director->runWithScene(scene);

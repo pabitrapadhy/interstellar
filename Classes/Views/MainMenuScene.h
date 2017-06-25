@@ -2,25 +2,33 @@
 #define __MAIN_MENU_SCENE_H__
 
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 #include "CCParallaxScrollNode.h"
 
+using namespace ui;
 USING_NS_CC;
 
-class MainMenuScene : public Scene {
+class MainMenuScene : public Layer {
+private:
+    float tick;
+    CCParallaxScrollNode* parallaxBackground;
+
 public:
+    MainMenuScene();
     static Scene* createScene();
     virtual bool init() override;
+    virtual void onExit() override;
     virtual void update(float delta) override;
 
     // variables
     Vec2 origin;
     Size visibleSize;
-    CCParallaxScrollNode* parallaxBackground;
-
+    
     // functions
     void setParallaxScrollingBG();
-    void menuCloseCallback(Ref* pSender);
-    
+    void onPlayClicked(Ref* sender, Widget::TouchEventType type);
+    void displayAsteroid();
+
     CREATE_FUNC(MainMenuScene);
 };
 

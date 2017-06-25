@@ -13,11 +13,20 @@ LOCAL_MODULE_FILENAME := libMyGame
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/MainMenuScene.cpp \
                    ../../Classes/CCParallaxScrollNode.cpp \
-                   ../../Classes/CCParallaxScrollOffset.cpp
+                   ../../Classes/CCParallaxScrollOffset.cpp \
+                   ../../Classes/Models/Asteroid.cpp \
+                   ../../Classes/Models/Bullet.cpp \
+                   ../../Classes/Views/MainMenuScene.cpp \
+                   ../../Classes/Controllers/GameObjectPool.cpp \
+                   ../../Classes/Controllers/AsteroidController.cpp \
+                   ../../Classes/Controllers/BulletController.cpp \
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
+
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
+					$(LOCAL_PATH)/../../Classes/Models \
+					$(LOCAL_PATH)/../../Classes/Views \
+					$(LOCAL_PATH)/../../Classes/Controllers \
 
 # _COCOS_HEADER_ANDROID_BEGIN
 # _COCOS_HEADER_ANDROID_END
