@@ -17,10 +17,12 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/CCParallaxScrollOffset.cpp \
                    ../../Classes/Models/Asteroid.cpp \
                    ../../Classes/Models/Bullet.cpp \
+                   ../../Classes/Models/SpaceShip.cpp \
                    ../../Classes/Views/MainMenuScene.cpp \
                    ../../Classes/Controllers/GameObjectPool.cpp \
                    ../../Classes/Controllers/AsteroidController.cpp \
                    ../../Classes/Controllers/BulletController.cpp \
+                   ../../Classes/Controllers/SpaceShipController.cpp \
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \

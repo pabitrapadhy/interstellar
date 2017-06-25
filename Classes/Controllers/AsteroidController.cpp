@@ -35,8 +35,7 @@ void AsteroidController::throwAsteroid(Layer* layer) {
 
 	// handle pool index rotation
 	this->poolIndex++;
-    if (this->poolIndex == poolSize)
-        this->poolIndex = 0;
+    if (this->poolIndex == poolSize) this->poolIndex = 0;
 }
 
 void AsteroidController::stopAsteroidMovement() {

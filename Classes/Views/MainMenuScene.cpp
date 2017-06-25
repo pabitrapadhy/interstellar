@@ -1,6 +1,7 @@
 #include "MainMenuScene.h"
 #include "GameObjectPool.h"
 #include "AsteroidController.h"
+#include "SpaceShipController.h"
 #include "SimpleAudioEngine.h"
 #include "Constants.h"
 
@@ -21,25 +22,17 @@ MainMenuScene::MainMenuScene() {
 
 bool MainMenuScene::init() {
     if (!Layer::init()) return false;
-    
-    origin = Director::getInstance()->getVisibleOrigin();
-    visibleSize = Director::getInstance()->getVisibleSize();
+
+    this->origin = Director::getInstance()->getVisibleOrigin();
+    this->visibleSize = Director::getInstance()->getVisibleSize();
 
     // game banner
     auto gamebanner = Sprite::create(GAME_BANNER_IMG);
     gamebanner->setPosition(origin.x + visibleSize.width/2, origin.y + visibleSize.height*0.66);
     this->addChild(gamebanner, Z_ORDER::BG_LAYER);
 
-    // play btn
-    auto playBtn = Button::create("button_normal.png", "button_pressed.png", "button_normal.png");
-    playBtn->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + visibleSize.height/3));
-    playBtn->setTitleText("START");
-    playBtn->setTitleColor(Color3B::BLACK);
-    playBtn->setTitleFontSize(25);
-    playBtn->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::onPlayClicked, this));
-    this->addChild(playBtn, Z_ORDER::BUTTONS);
-
     this->setParallaxScrollingBG();
+    this->addSpaceShip(); //TODO: move this to gamescene later
     this->scheduleUpdate();
     return true;
 }
@@ -68,6 +61,10 @@ void MainMenuScene::onPlayClicked(Ref* sender, Widget::TouchEventType type) {
 
 void MainMenuScene::displayAsteroid() {
     AsteroidController::getInstance()->throwAsteroid(this);
+}
+
+void MainMenuScene::addSpaceShip() {
+    SpaceShipController::getInstance()->createSpaceShip(this);
 }
 
 void MainMenuScene::update(float delta) {

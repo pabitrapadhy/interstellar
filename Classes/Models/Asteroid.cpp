@@ -23,7 +23,7 @@ bool Asteroid::initialize() {
 void Asteroid::makeFly(Layer* layer) {
 	auto origin = Director::getInstance()->getVisibleOrigin();
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-
+	
 	// selecting a random asteroid type
 	int asteroidType = (rand() % 8) + 1;
 	std::stringstream ss;
