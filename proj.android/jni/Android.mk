@@ -25,6 +25,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Controllers/BulletController.cpp \
                    ../../Classes/Controllers/SpaceShipController.cpp \
                    ../../Classes/Controllers/SceneController.cpp \
+                   ../../Classes/Controllers/SoundController.cpp \
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \

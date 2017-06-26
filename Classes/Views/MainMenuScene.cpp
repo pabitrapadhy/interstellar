@@ -4,6 +4,7 @@
 #include "SpaceShipController.h"
 #include "BulletController.h"
 #include "SceneController.h"
+#include "SoundController.h"
 #include "Constants.h"
 
 using namespace ui;
@@ -28,10 +29,12 @@ bool MainMenuScene::init() {
     this->origin = Director::getInstance()->getVisibleOrigin();
     this->visibleSize = Director::getInstance()->getVisibleSize();
 
+    SoundController::getInstance()->play(SOUND_BGM, true);
+
     // game banner
     auto gamebanner = Sprite::create(GAME_BANNER_IMG);
     gamebanner->setPosition(origin.x + visibleSize.width/2, origin.y + visibleSize.height*0.66);
-    this->addChild(gamebanner, Z_ORDER::BG_LAYER);
+    this->addChild(gamebanner, Z_ORDER::BUTTONS);
 
     // start button
     auto button = Button::create("button_normal.png", "button_pressed.png", "button_normal.png");

@@ -28,6 +28,11 @@ static const std::string ASTEROID_EXPLOSION = "Particles/meteorExplosion.plist";
 
 static const std::string FONT_NAME = "fonts/spacefont.ttf";
 
+// sound names
+static const std::string SOUND_BGM = "Audio/bgm.mp3";
+static const std::string SOUND_EXP_ASTEROID = "Audio/explosion_asteroid.mp3";
+static const std::string SOUND_EXP_SHIP = "Audio/explosion_ship.mp3";
+
 // layer orders
 enum Z_ORDER {
 	PARALLAX_LAYER = 0,

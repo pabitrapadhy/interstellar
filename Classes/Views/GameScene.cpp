@@ -4,6 +4,7 @@
 #include "SpaceShipController.h"
 #include "BulletController.h"
 #include "SceneController.h"
+#include "SoundController.h"
 #include "Constants.h"
 
 using namespace ui;
@@ -31,6 +32,8 @@ bool GameScene::init() {
 
     this->origin = Director::getInstance()->getVisibleOrigin();
     this->visibleSize = Director::getInstance()->getVisibleSize();
+
+    SoundController::getInstance()->play(SOUND_BGM, true);
 
     this->setParallaxScrollingBG();
     this->initializeHUD();
@@ -126,11 +129,13 @@ bool GameScene::onContact(PhysicsContact &contact) {
         a->getCollisionBitmask() == COLLISION_BITMASK_SPACESHIP &&
         b->getCollisionBitmask() == COLLISION_BITMASK_ASTEROID) {
         SpaceShipController::getInstance()->onCollisionShip();
+        SoundController::getInstance()->play(SOUND_EXP_SHIP);
     }
     else if (aSprite && bSprite &&
         b->getCollisionBitmask() == COLLISION_BITMASK_SPACESHIP &&
         a->getCollisionBitmask() == COLLISION_BITMASK_ASTEROID) {
         SpaceShipController::getInstance()->onCollisionShip();
+        SoundController::getInstance()->play(SOUND_EXP_SHIP);
     }
 
     // collision of asteroid and bullet, both are damaged
@@ -139,6 +144,7 @@ bool GameScene::onContact(PhysicsContact &contact) {
         b->getCollisionBitmask() == COLLISION_BITMASK_BULLET) {
         AsteroidController::getInstance()->onCollisionAsteroid(a->getTag());
         BulletController::getInstance()->onCollisionBullet(b->getTag());
+        SoundController::getInstance()->play(SOUND_EXP_ASTEROID);
         this->setScore(this->score + 50);
     }
     else if (aSprite && bSprite && 
@@ -146,6 +152,7 @@ bool GameScene::onContact(PhysicsContact &contact) {
         a->getCollisionBitmask() == COLLISION_BITMASK_BULLET) {
         AsteroidController::getInstance()->onCollisionAsteroid(b->getTag());
         BulletController::getInstance()->onCollisionBullet(a->getTag());
+        SoundController::getInstance()->play(SOUND_EXP_ASTEROID);
         this->setScore(this->score + 50);
     }
     return true;

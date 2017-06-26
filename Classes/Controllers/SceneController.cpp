@@ -1,6 +1,7 @@
 #include "SceneController.h"
 #include "GameScene.h"
 #include "MainMenuScene.h"
+#include "SoundController.h"
 
 USING_NS_CC;
 
@@ -19,6 +20,7 @@ void SceneController::registerListener(Ref* target, const char* event) {};
 void SceneController::deregisterListener(const char* event) {};
 
 void SceneController::changeScene(SCENE type) {
+	SoundController::getInstance()->stopAll();
 	if (type == SCENE::MAIN_SCENE) {
 		Scene* scene = MainMenuScene::createScene();
         Director::getInstance()->replaceScene(TransitionFade::create(0.5f, scene, Color3B::BLACK));
