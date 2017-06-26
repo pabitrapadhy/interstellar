@@ -1,5 +1,6 @@
 #include "SpaceShip.h"
 #include "Constants.h"
+#include "SceneController.h"
 
 USING_NS_CC;
 
@@ -48,7 +49,7 @@ bool SpaceShip::initialize(Layer* layer) {
 
 		// add the asteroid to a layer in scene
 		this->texture->setPosition(origin.x + visibleSize.width/2, origin.y + visibleSize.height*0.2);
-		layer->addChild(this->texture, 2);
+		layer->addChild(this->texture, 3);
 
 	} else {
 		CCLOG("pabitra: asteroid texture error");
@@ -64,6 +65,15 @@ bool SpaceShip::initialize(Layer* layer) {
 	layer->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, layer);
 
 	return true;
+}
+
+Vec2 SpaceShip::getPosition() {
+	if (this->texture) return this->texture->getPosition();
+	return Vec2(-100, 0);
+}
+
+bool SpaceShip::hasTexture() {
+	(this->texture) ? true : false;
 }
 
 bool SpaceShip::onTouchBegan(Touch* touch, Event* event) {
@@ -101,7 +111,19 @@ void SpaceShip::onTouchMoved(Touch* touch, Event* event) {
 
 void SpaceShip::onTouchEnded(Touch* touch, Event* event) {}
 
-//TODO: fix the reset functionality to proper one
+void SpaceShip::explode() {
+	if (!this->texture) return;
+	auto parent = this->texture->getParent();
+	if (!parent) return;
+
+	auto explosion = ParticleSystemQuad::create(SPACESHIP_EXPLOSION);
+	explosion->setPosition(this->getPosition());
+	explosion->setAutoRemoveOnFinish(true);
+	parent->addChild(explosion, 4);
+
+	this->reset();
+}
+
 void SpaceShip::reset() {
 	if (this->texture) {
 		this->texture->stopAllActions();
@@ -109,5 +131,7 @@ void SpaceShip::reset() {
 
 		// removing from the parent layer
 		this->texture->removeFromParentAndCleanup(true);
+    	Director::getInstance()->getEventDispatcher()->removeAllEventListeners();
+		SceneController::getInstance()->changeScene(SCENE::MAIN_SCENE);
 	}
 }

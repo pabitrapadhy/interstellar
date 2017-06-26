@@ -2,10 +2,12 @@
 #include "GameObjectPool.h"
 #include "AsteroidController.h"
 #include "SpaceShipController.h"
-#include "SimpleAudioEngine.h"
+#include "BulletController.h"
+#include "SceneController.h"
 #include "Constants.h"
 
 using namespace ui;
+
 USING_NS_CC;
 
 Scene* MainMenuScene::createScene() {
@@ -16,7 +18,7 @@ Scene* MainMenuScene::createScene() {
 }
 
 MainMenuScene::MainMenuScene() {
-    this->tick = 0.0f;
+    this->tickAsteroid = 0.0f;
     this->parallaxBackground = nullptr;
 }
 
@@ -31,9 +33,18 @@ bool MainMenuScene::init() {
     gamebanner->setPosition(origin.x + visibleSize.width/2, origin.y + visibleSize.height*0.66);
     this->addChild(gamebanner, Z_ORDER::BG_LAYER);
 
+    // start button
+    auto button = Button::create("button_normal.png", "button_pressed.png", "button_normal.png");
+    button->setTitleText("START");
+    button->setTitleFontSize(30);
+    button->setTitleColor(Color3B::BLACK);
+    button->addTouchEventListener(CC_CALLBACK_2(MainMenuScene::onPlayClicked, this));
+    button->setPosition(Vec2(origin.x + visibleSize.width/2, origin.y + visibleSize.height/3));
+    this->addChild(button, Z_ORDER::BUTTONS);
+
     this->setParallaxScrollingBG();
-    this->addSpaceShip(); //TODO: move this to gamescene later
     this->scheduleUpdate();
+
     return true;
 }
 
@@ -55,7 +66,8 @@ void MainMenuScene::setParallaxScrollingBG() {
 
 void MainMenuScene::onPlayClicked(Ref* sender, Widget::TouchEventType type) {
     if (type == ui::Widget::TouchEventType::ENDED) {
-        // change to gamescene
+        Director::getInstance()->getEventDispatcher()->removeAllEventListeners();
+        SceneController::getInstance()->changeScene(SCENE::GAME_SCENE);
     }
 }
 
@@ -63,19 +75,15 @@ void MainMenuScene::displayAsteroid() {
     AsteroidController::getInstance()->throwAsteroid(this);
 }
 
-void MainMenuScene::addSpaceShip() {
-    SpaceShipController::getInstance()->createSpaceShip(this);
-}
-
 void MainMenuScene::update(float delta) {
-    this->tick += delta;
+    this->tickAsteroid += delta;
 
     // update the parallax background
     parallaxBackground->updateWithVelocity(Vec2(0, -0.01f * visibleSize.height), delta);
 
     // making a meteor fly after some duration
-    if (this->tick > (250.0f/visibleSize.width)) {
-        tick = 0;
-        displayAsteroid();
+    if (this->tickAsteroid > (300.0f/visibleSize.width)) {
+        this->tickAsteroid = 0;
+        this->displayAsteroid();
     }
 }

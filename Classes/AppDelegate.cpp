@@ -77,8 +77,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     //Preload Sprite in Cache
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("spriteSheet.plist", "spriteSheet.png");
 
-    // start object pooling
+    // start object pooling (can be moved to a state machine)
     GameObjectPool::getInstance()->createGameObjectPool(GameObjectType::ASTEROID);
+    GameObjectPool::getInstance()->createGameObjectPool(GameObjectType::BULLET);
     
     // create a scene. it's an autorelease object
     auto scene = MainMenuScene::createScene();

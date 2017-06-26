@@ -31,7 +31,7 @@ Asteroid* AsteroidController::createAsteroid() {
 void AsteroidController::throwAsteroid(Layer* layer) {
 	int poolSize = GameObjectPool::getInstance()->getPoolSize();
 	Asteroid* obj = GameObjectPool::getInstance()->getAsteroid(this->poolIndex);
-	if (obj) obj->makeFly(layer);
+	if (obj) obj->makeFly(layer, this->poolIndex);
 
 	// handle pool index rotation
 	this->poolIndex++;
@@ -40,6 +40,11 @@ void AsteroidController::throwAsteroid(Layer* layer) {
 
 void AsteroidController::stopAsteroidMovement() {
 
+}
+
+void AsteroidController::onCollisionAsteroid(int index) {
+	Asteroid* obj = GameObjectPool::getInstance()->getAsteroid(index);
+	if (obj) obj->explode();
 }
 
 void AsteroidController::debug() {

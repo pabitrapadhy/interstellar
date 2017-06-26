@@ -33,8 +33,21 @@ SpaceShip* SpaceShipController::createSpaceShip(Layer* layer) {
 	}
 }
 
+SpaceShip* SpaceShipController::getSpaceShip() {
+	if (this->spaceship && this->spaceship->hasTexture()) return this->spaceship;
+	return nullptr;
+}
+
 void SpaceShipController::setSpaceShip(SpaceShip* ship) {
 	this->spaceship = ship;
+}
+
+void SpaceShipController::onCollisionShip() {
+	if (this->spaceship) {
+		this->spaceship->explode();
+		delete this->spaceship;
+		this->spaceship = nullptr;
+	}
 }
 
 void SpaceShipController::debug() {

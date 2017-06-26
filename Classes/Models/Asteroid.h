@@ -8,11 +8,14 @@ class Asteroid : public Ref {
 private:
 	Sprite* texture;
 	PhysicsBody* body;
+	
 public:
 	Asteroid();
 
 	static Asteroid* create();
 	bool initialize();
-	void makeFly(Layer* layer);
+	Vec2 getPosition();
+	void makeFly(Layer* layer, int index);
+	void explode();
 	void reset();
 };

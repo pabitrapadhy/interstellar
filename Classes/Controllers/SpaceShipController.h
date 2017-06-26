@@ -22,6 +22,8 @@ public:
     void registerListener(Ref* target, const char* event);
     void deregisterListener(const char* event);    
     SpaceShip* createSpaceShip(Layer* layer);
+    SpaceShip* getSpaceShip();
     void setSpaceShip(SpaceShip* ship);
+    void onCollisionShip();
 	void debug();
 };

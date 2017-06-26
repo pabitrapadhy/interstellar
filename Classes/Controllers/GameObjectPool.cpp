@@ -30,11 +30,12 @@ void GameObjectPool::createGameObjectPool(GameObjectType type) {
 			Asteroid* asteroid = AsteroidController::getInstance()->createAsteroid();
 			this->asteroidPool.push_back(asteroid);
 		}
-	} else if ((type == GameObjectType:: BULLET) && !this->bulletPool.size()) {
+	}
+	if ((type == GameObjectType:: BULLET) && !this->bulletPool.size()) {
 		CCLOG("pabitra: creating bullets pool");
 		for (int i = 0; i < this->poolSize; ++i) {
-			// Bullet* bullet = BulletController::getInstance()->createBullet();
-			// this->bulletPool.push_back(bullet);
+			Bullet* bullet = BulletController::getInstance()->createBullet();
+			this->bulletPool.push_back(bullet);
 		}
 	}
 }
@@ -42,6 +43,13 @@ void GameObjectPool::createGameObjectPool(GameObjectType type) {
 Asteroid* GameObjectPool::getAsteroid(int index) {
 	if (this->asteroidPool.size()) {
 		return this->asteroidPool.at(index);
+	}
+	return nullptr;
+}
+
+Bullet* GameObjectPool::getBullet(int index) {
+	if (this->bulletPool.size()) {
+		return this->bulletPool.at(index);
 	}
 	return nullptr;
 }

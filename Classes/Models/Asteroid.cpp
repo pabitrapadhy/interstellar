@@ -1,7 +1,7 @@
 #include "Asteroid.h"
 #include "Constants.h"
 
-#define SPEED 0.002f
+#define SPEED 0.0015f
 
 USING_NS_CC;
 
@@ -20,12 +20,17 @@ bool Asteroid::initialize() {
 	return true;
 }
 
-void Asteroid::makeFly(Layer* layer) {
+Vec2 Asteroid::getPosition() {
+	if (this->texture) return this->texture->getPosition();
+	return Vec2(-100, 0);
+}
+
+void Asteroid::makeFly(Layer* layer, int index) {
 	auto origin = Director::getInstance()->getVisibleOrigin();
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	
 	// selecting a random asteroid type
-	int asteroidType = (rand() % 8) + 1;
+	int asteroidType = (rand() % 14) + 1;
 	std::stringstream ss;
 	ss << SPACEBODY << asteroidType << ".png";
 	std::string str = ss.str().c_str();
@@ -43,6 +48,7 @@ void Asteroid::makeFly(Layer* layer) {
 			this->body->setCollisionBitmask(COLLISION_BITMASK_ASTEROID);
 			this->body->setContactTestBitmask(true);
 			this->body->setDynamic(false);
+			this->body->setTag(index);
 			this->texture->setPhysicsBody(body);
 		} else {
 			CCLOG("pabitra: physics body error");
@@ -61,12 +67,26 @@ void Asteroid::makeFly(Layer* layer) {
 		this->texture->runAction(spawn);
 		
 		// add the asteroid to a layer in scene
-		layer->addChild(this->texture, 2);
+		layer->addChild(this->texture, 3);
 
 	} else {
 		CCLOG("pabitra: asteroid texture error");
 		return;
 	}
+}
+
+void Asteroid::explode() {
+	if (!this->texture) return;
+	auto parent = this->texture->getParent();
+	if (!parent) return;
+
+	auto explosion = ParticleSystemQuad::create(ASTEROID_EXPLOSION);
+	explosion->setPosition(this->getPosition());
+	explosion->setAutoRemoveOnFinish(true);
+	parent->addChild(explosion, 4);
+
+	this->reset();
+	// GameScene::playEffect(AUDIO_METEOR_EXPLOSION);
 }
 
 void Asteroid::reset() {

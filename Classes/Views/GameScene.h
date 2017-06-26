@@ -7,15 +7,20 @@
 using namespace ui;
 USING_NS_CC;
 
-class MainMenuScene : public Layer {
+class GameScene : public Layer {
 private:
     float tickAsteroid;
+    float tickBullet;
     CCParallaxScrollNode* parallaxBackground;
     Vec2 origin;
     Size visibleSize;
+    int score;
+    int highScore;
+    Label* scoreLabel;
+    Label* highScoreLabel;
 
 public:
-    MainMenuScene();
+    GameScene();
     static Scene* createScene();
     virtual bool init() override;
     virtual void onExit() override;
@@ -23,8 +28,12 @@ public:
 
     // functions
     void setParallaxScrollingBG();
-    void onPlayClicked(Ref* sender, Widget::TouchEventType type);
+    void initializeHUD();
     void displayAsteroid();
+    void addSpaceShip();
+    void startFiring();
+    bool onContact(PhysicsContact &contact);
+    void setScore(int score);
     
-    CREATE_FUNC(MainMenuScene);
+    CREATE_FUNC(GameScene);
 };

@@ -17,8 +17,16 @@ static const int COLLISION_BITMASK_SPACESHIP = 3;
 // image names
 static const std::string SPACEBODY = "meteor";
 static const std::string SPACESHIP = "ship";
+static const std::string BULLETBODY = "laser";
 static const std::string BACKGROUND_IMG = "background.png";
 static const std::string GAME_BANNER_IMG = "gamename.png";
+
+static const std::string SPACESHIP_COLLISION = "Particles/shipCollision.plist";
+static const std::string SPACESHIP_EXPLOSION = "Particles/shipExplosion.plist";
+static const std::string BULLET_COLLISION = "Particles/bulletCollision.plist";
+static const std::string ASTEROID_EXPLOSION = "Particles/meteorExplosion.plist";
+
+static const std::string FONT_NAME = "fonts/spacefont.ttf";
 
 // layer orders
 enum Z_ORDER {
@@ -26,4 +34,10 @@ enum Z_ORDER {
 	BG_LAYER = 1,
 	HUD_LAYER = 4,
 	BUTTONS = 5
+};
+
+// game scenes
+enum SCENE {
+	MAIN_SCENE = 0,
+	GAME_SCENE
 };

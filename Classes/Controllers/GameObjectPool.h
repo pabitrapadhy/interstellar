@@ -33,6 +33,7 @@ public:
     void deregisterListener(const char* event);
 	void createGameObjectPool(GameObjectType type);
 	Asteroid* getAsteroid(int index);
+	Bullet* getBullet(int index);
 	int getPoolSize();
 	void debug();
 };

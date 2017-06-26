@@ -22,5 +22,8 @@ public:
 
 	static SpaceShip* create();
 	bool initialize(Layer* layer);
+	bool hasTexture();
+	Vec2 getPosition();
+	void explode();
 	void reset();
 };

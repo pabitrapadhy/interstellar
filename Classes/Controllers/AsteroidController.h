@@ -24,5 +24,6 @@ public:
     Asteroid* createAsteroid();
     void throwAsteroid(Layer* layer);
     void stopAsteroidMovement();
+    void onCollisionAsteroid(int index);
 	void debug();
 };

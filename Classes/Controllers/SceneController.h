@@ -2,28 +2,23 @@
 
 #include "cocos2d.h"
 #include "IController.h"
+#include "Constants.h"
 
 USING_NS_CC;
 
-class Bullet;
-class BulletController : public IController {
-private:
-	int poolIndex;
-	
+class SceneController : public IController {
 protected:
-	BulletController();
-	~BulletController();
+	SceneController();
 
 public:
-	static BulletController* getInstance();
+	static SceneController* getInstance();
 
 	// methods
 	void initListeners(Ref* target);
     void removeListeners();
     void registerListener(Ref* target, const char* event);
     void deregisterListener(const char* event);
-    Bullet* createBullet();
-    void shootBullets(Layer* layer);
-    void onCollisionBullet(int index);
+    void changeScene(SCENE type);
+    void quitGame();
 	void debug();
 };
